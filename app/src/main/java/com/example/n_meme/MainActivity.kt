@@ -43,6 +43,8 @@ open class MainActivity : AppCompatActivity() {
         binding.nextMeme.setOnClickListener {
             loadMeme()
         }
+        binding.shareMeme.setOnClickListener { shareMeme() }
+        binding.addToFav.setOnClickListener { addToFav() }
     }
 
 

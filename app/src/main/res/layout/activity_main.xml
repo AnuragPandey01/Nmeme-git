@@ -137,7 +137,26 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.90" />
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <ImageButton
+        android:id="@+id/add_to_fav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
@@ -149,6 +168,7 @@
         android:contentDescription="@string/add_to_favourite" />
 
     <ImageButton
+        android:id="@+id/share_meme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
