@@ -9,6 +9,9 @@ Features include:
 * Local reading of downloaded content
 * Sharing your favourite meme to anyone
 
+## Download
+Get the app from our [releases page](https://github.com/AnuragPandey01/Nmeme-git/releases).
+
 ## Disclaimer
 
 The developer of this application does not have any affiliation with the content providers available.
