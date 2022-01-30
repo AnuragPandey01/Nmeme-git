@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Nekko Player</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="playlist">Playlist</string>
+    <string name="favourite">Favourites</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="back">back</string>
+    <string name="timer_button">Timer button</string>
+    <string name="repeat_button">Repeat button</string>
+    <string name="equalizer_button">Equalizer button</string>
+    <string name="next_music_button">next music button</string>
+    <string name="play_pause_button">play/pause button</string>
+    <string name="previous_music_button">previous music button</string>
+    <string name="search">search</string>
+    <string name="settings">setting</string>
+    <string name="about">about</string>
+    <string name="sort_by">sort by</string>
+    <string name="exit">Exit</string>
+    <string name="anime">Anime</string>
+    <string name="wholesome">Wholesome</string>
+    <string name="dank">Dank</string>
+    <string name="history">History</string>
+    <string name="gaming">Gaming</string>
+    <string name="next">Next</string>
+    <string name="loading">Loading...</string>
+    <string name="meme_loading_failed">meme loading failed</string>
+    <string name="add_to_favourite">Add to favourite</string>
+</resources>
