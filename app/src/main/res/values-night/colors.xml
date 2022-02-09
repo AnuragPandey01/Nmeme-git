@@ -13,5 +13,5 @@
     <color name="green_350">#7BEA6F</color>
     <color name="transparent_red">#FBFFD8DA</color>
     <color name="red_350">#FE7A87</color>
-    <color name="component_color">#DAD9D9</color>
+    <color name="background_color">#121212</color>
 </resources>

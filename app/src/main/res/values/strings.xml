@@ -9,4 +9,11 @@
     <string name="loading">Loading...</string>
     <string name="meme_loading_failed">meme loading failed</string>
     <string name="add_to_favourite">Add to favourite</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="light_mode">light mode</string>
+    <string name="share">share</string>
+    <string name="settings">Settings</string>
+    <string name="favourites">Favourites</string>
+    <string name="exit">Exit</string>
+
 </resources>

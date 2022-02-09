@@ -13,5 +13,6 @@
     <color name="green_350">#7BEA6F</color>
     <color name="transparent_red">#FBFFD8DA</color>
     <color name="red_350">#FE7A87</color>
-    <color name="component_color">#1F1F1F</color>
+    <color name="background_color">#E7E6E6</color>
+    <color name="action_bar_color">#FFBB86FC</color>
 </resources>
