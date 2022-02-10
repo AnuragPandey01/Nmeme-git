@@ -15,5 +15,8 @@
     <string name="settings">Settings</string>
     <string name="favourites">Favourites</string>
     <string name="exit">Exit</string>
+    <string name="setting">Setting</string>
+    <string name="enable_dark_mode">Enable dark mode</string>
+    <string name="failed">failed</string>
 
 </resources>

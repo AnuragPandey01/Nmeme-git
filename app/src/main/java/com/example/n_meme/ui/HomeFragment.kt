@@ -2,6 +2,7 @@ package com.example.n_meme.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -16,8 +17,12 @@ import com.example.n_meme.R
 import com.example.n_meme.adapter.MemeAdapter
 import com.example.n_meme.api.RetrofitInstance
 import com.example.n_meme.databinding.FragmentHomeBinding
+import com.example.n_meme.model.FavDataBase
+import com.example.n_meme.model.Favourites
 import com.example.n_meme.model.Meme
 import com.example.n_meme.model.MemeResponse
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +31,9 @@ import kotlin.concurrent.thread
 
 class HomeFragment : Fragment() {
 
+    private lateinit var favDataBaseInstance: FavDataBase
     private var memeList = mutableListOf<Meme>()
+    private var addedToFavourites = mutableListOf<String>()
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: MemeAdapter
 
@@ -36,7 +43,8 @@ class HomeFragment : Fragment() {
         setOnClickListener()
         initViewPager()
         loadMeme()
-       return binding.root
+        favDataBaseInstance = FavDataBase.getDatabaseInstance(requireContext())
+        return binding.root
     }
 
     private fun setOnClickListener() {
@@ -65,7 +73,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<MemeResponse>, t: Throwable) {
-
+                    binding.textView.visibility =View.VISIBLE
             }
 
         })
@@ -120,7 +128,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun addToFav() {
+        val toBeAdded = memeList[binding.recyclerView.currentItem].url
+        if(addedToFavourites.contains(toBeAdded)){
+            Toast.makeText(requireContext(),"added to favourite", Toast.LENGTH_SHORT).show()
+            return
+        }
+        GlobalScope.launch {
+            favDataBaseInstance.favDao().insertFav(Favourites(0,
+               toBeAdded
+            ))
+        }
         Toast.makeText(requireContext(),"added to favourite", Toast.LENGTH_SHORT).show()
+        addedToFavourites.add(toBeAdded)
     }
 
 }
