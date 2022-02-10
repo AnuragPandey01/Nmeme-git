@@ -8,10 +8,9 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.n_meme.R
-import com.example.n_meme.model.FavDataBase
 import com.example.n_meme.model.Favourites
 
-class FavAdapter(val context: Context,val favList: List<Favourites>): RecyclerView.Adapter<FavAdapter.ViewHolder>(){
+class FavAdapter(val context: Context, private val favList: List<Favourites>): RecyclerView.Adapter<FavAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.fav_item_view,parent,false)

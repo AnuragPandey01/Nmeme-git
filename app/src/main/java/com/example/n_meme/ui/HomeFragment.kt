@@ -2,7 +2,6 @@ package com.example.n_meme.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -67,7 +66,7 @@ class HomeFragment : Fragment() {
                 if(memeResponse != null) {
                     val prevSize = memeList.size
                     memeList.addAll(memeResponse.memes)
-                    adapter.notifyItemRangeInserted(prevSize-1,7)
+                    adapter.notifyItemRangeInserted(prevSize,7)
 
                 }
             }
@@ -130,7 +129,7 @@ class HomeFragment : Fragment() {
     private fun addToFav() {
         val toBeAdded = memeList[binding.recyclerView.currentItem].url
         if(addedToFavourites.contains(toBeAdded)){
-            Toast.makeText(requireContext(),"added to favourite", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"already added", Toast.LENGTH_SHORT).show()
             return
         }
         GlobalScope.launch {
