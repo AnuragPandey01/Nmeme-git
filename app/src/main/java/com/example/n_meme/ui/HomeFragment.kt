@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<MemeResponse>, t: Throwable) {
-                    binding.textView.visibility =View.VISIBLE
+                    Toast.makeText(requireContext(),"failed to load more meme",Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -80,13 +80,13 @@ class HomeFragment : Fragment() {
 
     private fun initViewPager(){
 
-        binding.recyclerView.orientation = ViewPager2.ORIENTATION_VERTICAL
+        binding.viewpager.orientation = ViewPager2.ORIENTATION_VERTICAL
         adapter = MemeAdapter(requireContext() , memeList)
-        binding.recyclerView.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding.viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
 
             var prevPosition = 0
             override fun onPageSelected(position: Int) {
-                if( prevPosition < position && memeList.size - binding.recyclerView.currentItem <= 3){
+                if( prevPosition < position && memeList.size - binding.viewpager.currentItem <= 3){
                     thread(true){
                         loadMeme()
                     }
@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.recyclerView.adapter = adapter
+        binding.viewpager.adapter = adapter
     }
 
     private fun setPopUpMenu(){
@@ -121,24 +121,21 @@ class HomeFragment : Fragment() {
     private fun shareMeme() {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, "Hey check out this meme ${memeList[binding.recyclerView.currentItem].url}")
+        intent.putExtra(Intent.EXTRA_TEXT, "Hey check out this meme ${memeList[binding.viewpager.currentItem].url}")
         val chooser = Intent.createChooser(intent, "Complete action using...")
         startActivity(chooser)
     }
 
     private fun addToFav() {
-        val toBeAdded = memeList[binding.recyclerView.currentItem].url
+        val toBeAdded = memeList[binding.viewpager.currentItem].url
         if(addedToFavourites.contains(toBeAdded)){
             Toast.makeText(requireContext(),"already added", Toast.LENGTH_SHORT).show()
             return
         }
         GlobalScope.launch {
-            favDataBaseInstance.favDao().insertFav(Favourites(0,
-               toBeAdded
-            ))
+            favDataBaseInstance.favDao().insertFav(Favourites(0, toBeAdded) )
         }
         Toast.makeText(requireContext(),"added to favourite", Toast.LENGTH_SHORT).show()
         addedToFavourites.add(toBeAdded)
     }
-
 }
