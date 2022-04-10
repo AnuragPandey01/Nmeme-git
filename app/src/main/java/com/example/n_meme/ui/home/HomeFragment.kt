@@ -1,40 +1,35 @@
-package com.example.n_meme.ui
+package com.example.n_meme.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.n_meme.R
-import com.example.n_meme.adapter.MemeAdapter
-import com.example.n_meme.api.RetrofitInstance
 import com.example.n_meme.databinding.FragmentHomeBinding
-import com.example.n_meme.model.FavDataBase
-import com.example.n_meme.model.Favourites
 import com.example.n_meme.model.Meme
-import com.example.n_meme.model.MemeResponse
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import kotlin.concurrent.thread
+import com.example.n_meme.ui.home.adapter.MemeAdapter
+import java.lang.Exception
 
-
+const val TAG = "HomeFragment"
 class HomeFragment : Fragment() {
 
-    private lateinit var favDataBaseInstance: FavDataBase
-    private var memeList = mutableListOf<Meme>()
     private var addedToFavourites = mutableListOf<String>()
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var adapter: MemeAdapter
+
+    private val memeAdapter : MemeAdapter by lazy { MemeAdapter(requireContext()) }
+    private val memeList: List<Meme> by lazy { memeAdapter.memeList }
+    private val viewModel : HomeViewModel by lazy {
+        ViewModelProvider(this).get(HomeViewModel::class.java)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         //data binding
@@ -42,7 +37,22 @@ class HomeFragment : Fragment() {
         setOnClickListener()
         initViewPager()
         loadMeme()
-        favDataBaseInstance = FavDataBase.getDatabaseInstance(requireContext())
+        try {
+            viewModel.response.observe(viewLifecycleOwner){ response->
+                if(response.isSuccessful){
+                    memeAdapter.setData(response.body()!!.memes)
+                }
+                else{
+                    Toast.makeText(requireContext(),response.code().toString(),Toast.LENGTH_LONG).show()
+                    Log.e(TAG, "onCreateView: ${response.errorBody()} " )
+                }
+            }
+        }
+        catch (e:Exception){
+            Log.e(TAG, "onCreateView: ${e.stackTrace}")
+            Toast.makeText(requireContext(),"Check your connection",Toast.LENGTH_LONG).show()
+        }
+
         return binding.root
     }
 
@@ -56,53 +66,29 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadMeme(){
-        val call = RetrofitInstance.GetRetrofitInstance.MemeInstance.getMeme("dankmemes")
-
-        call.enqueue(object: Callback<MemeResponse> {
-            override fun onResponse(call: Call<MemeResponse>, response: Response<MemeResponse>) {
-
-                val memeResponse  = response.body()
-
-                if(memeResponse != null) {
-                    val prevSize = memeList.size
-                    memeList.addAll(memeResponse.memes)
-                    adapter.notifyItemRangeInserted(prevSize,7)
-
-                }
-            }
-
-            override fun onFailure(call: Call<MemeResponse>, t: Throwable) {
-                    Toast.makeText(requireContext(),"failed to load more meme",Toast.LENGTH_SHORT).show()
-            }
-
-        })
+        if( memeList.size%7 == 0){
+            viewModel.getMeme("dankmemes")
+        }
     }
 
     private fun initViewPager(){
-
         binding.viewpager.orientation = ViewPager2.ORIENTATION_VERTICAL
-        adapter = MemeAdapter(requireContext() , memeList)
-        binding.viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding.viewpager.adapter = memeAdapter
 
+        binding.viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             var prevPosition = 0
             override fun onPageSelected(position: Int) {
                 if( prevPosition < position && memeList.size - binding.viewpager.currentItem <= 3){
-                    thread(true){
-                        loadMeme()
-                    }
-
+                   loadMeme()
                 }
                 prevPosition = position
             }
         })
-
-        binding.viewpager.adapter = adapter
     }
 
     private fun setPopUpMenu(){
         val popupMenu = PopupMenu(requireContext(),binding.overflowMenu)
-
-        popupMenu.menuInflater.inflate(R.menu.overflow_menu , popupMenu.menu)
+        popupMenu.inflate(R.menu.overflow_menu)
 
         popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
             override fun onMenuItemClick(item: MenuItem?): Boolean {
@@ -112,9 +98,7 @@ class HomeFragment : Fragment() {
                 }
                 return true
             }
-
         })
-
         popupMenu.show()
     }
 
@@ -127,15 +111,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun addToFav() {
-        val toBeAdded = memeList[binding.viewpager.currentItem].url
-        if(addedToFavourites.contains(toBeAdded)){
+        val toBeAdded = memeList[binding.viewpager.currentItem]
+
+        if(addedToFavourites.contains(toBeAdded.url)){
             Toast.makeText(requireContext(),"already added", Toast.LENGTH_SHORT).show()
             return
         }
-        GlobalScope.launch {
-            favDataBaseInstance.favDao().insertFav(Favourites(0, toBeAdded) )
-        }
+
+        viewModel.addToFav(toBeAdded.url,toBeAdded.title)
+
         Toast.makeText(requireContext(),"added to favourite", Toast.LENGTH_SHORT).show()
-        addedToFavourites.add(toBeAdded)
+        addedToFavourites.add(toBeAdded.url)
     }
 }

@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="16dp"
     android:paddingVertical="8dp"
-    tools:context=".ui.MemeActivity">
+    tools:context=".ui.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/myNavHostFragment"

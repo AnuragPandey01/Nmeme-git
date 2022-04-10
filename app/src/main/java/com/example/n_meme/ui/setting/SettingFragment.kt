@@ -1,4 +1,4 @@
-package com.example.n_meme.ui
+package com.example.n_meme.ui.setting
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

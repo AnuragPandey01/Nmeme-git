@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="2dp"
-    android:layout_height="wrap_content">
+    android:layout_margin="10dp"
+    app:strokeWidth="2dp"
+    app:strokeColor="@color/action_bar_color"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp">
 
     <ImageView
         android:id="@+id/fav_item"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        tools:src="@tools:sample/avatars"
-        android:importantForAccessibility="no"/>
-
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:importantForAccessibility="no"
+        tools:src="@tools:sample/avatars" />
+</com.google.android.material.card.MaterialCardView>

@@ -15,4 +15,5 @@
     <color name="red_350">#FE7A87</color>
     <color name="background_color">#E7E6E6</color>
     <color name="action_bar_color">#FFBB86FC</color>
+    <color name="grey">#3F3C3C</color>
 </resources>

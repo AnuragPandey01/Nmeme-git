@@ -1,4 +1,4 @@
-package com.example.n_meme.ui
+package com.example.n_meme.ui.favourite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,17 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.n_meme.R
-import com.example.n_meme.adapter.FavAdapter
+import com.example.n_meme.ui.favourite.adapter.FavAdapter
 import com.example.n_meme.databinding.FragmentFavouritesBinding
-import com.example.n_meme.model.FavDataBase
-import com.example.n_meme.model.Favourites
+import com.example.n_meme.model.database.Favourites
 
 
 class FavouritesFragment : Fragment() {
 
-    private lateinit var favDataBaseInstance: FavDataBase
+    private val favViewModel : FavViewModel by lazy{
+        ViewModelProvider(this).get(FavViewModel::class.java)
+    }
     private lateinit var binding: FragmentFavouritesBinding
 
     override fun onCreateView(
@@ -33,17 +36,15 @@ class FavouritesFragment : Fragment() {
 
     private fun initRecyclerView(favList: List<Favourites>) {
         val adapter = FavAdapter(requireContext() , favList)
-        val layoutManager = GridLayoutManager(context,3)
+        val layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
         binding.favRecyclerview.adapter = adapter
         binding.favRecyclerview.layoutManager = layoutManager
 
     }
 
     private fun updateFavList() {
-        favDataBaseInstance = FavDataBase.getDatabaseInstance(requireContext())
-        favDataBaseInstance.favDao().getFav().observe(viewLifecycleOwner){
+        favViewModel.GetAllFav().favList.observe(viewLifecycleOwner){
             initRecyclerView(it)
         }
-
     }
 }

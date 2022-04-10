@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.n_meme.ui.HomeFragment"
+        android:name="com.example.n_meme.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -19,20 +19,36 @@
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
-        android:name="com.example.n_meme.ui.FavouritesFragment"
+        android:name="com.example.n_meme.ui.favourite.FavouritesFragment"
         android:label="fragment_favourites"
         tools:layout="@layout/fragment_favourites" >
         <action
             android:id="@+id/action_favouritesFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_favouritesFragment_to_detailFavouriteFragment"
+            app:destination="@id/detailFavouriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.n_meme.ui.SettingFragment"
+        android:name="com.example.n_meme.ui.setting.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" >
         <action
             android:id="@+id/action_settingFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFavouriteFragment"
+        android:name="com.example.n_meme.ui.favourite.DetailFavouriteFragment"
+        android:label="fragment_detail_favourite"
+        tools:layout="@layout/fragment_detail_favourite" >
+        <action
+            android:id="@+id/action_detailFavouriteFragment_to_favouritesFragment"
+            app:destination="@id/favouritesFragment" />
+        <argument
+            android:name="toFav"
+            app:argType="integer" />
+
     </fragment>
 </navigation>

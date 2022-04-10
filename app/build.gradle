@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
+    id("kotlin-parcelize")
+
 }
 
 android {
@@ -19,8 +22,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
@@ -37,7 +40,9 @@ android {
     }
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
+    buildToolsVersion '33.0.0 rc1'
 
 }
 
@@ -63,7 +68,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
 
-
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -72,16 +76,16 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
    // viewModel
-    def lifecycle_version = "2.4.0"
+    def lifecycle_version = "2.4.1"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
 
-    //
-    def nav_version = "2.4.0"
+    //navigation component
+    def nav_version = "2.4.1"
     implementation ("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation ("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     // Room database
-    def roomVersion = "2.4.1"
+    def roomVersion = "2.4.2"
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"

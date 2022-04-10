@@ -2,10 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.HomeFragment">
+    tools:context=".ui.home.HomeFragment">
 
     <data>
-        <variable name="user" type="com.example.n_meme.ui.HomeFragment"/>
+        <variable name="user" type="com.example.n_meme.ui.home.HomeFragment"/>
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,13 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.FavouriteFragment">
     <data>
-        <variable name="user" type="com.example.n_meme.ui.FavouritesFragment"/>
+        <variable name="user" type="com.example.n_meme.ui.favourite.FavouritesFragment"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
-        android:padding="8dp">
+        android:background="@color/background_color">
 
         <TextView
             android:id="@+id/fragment_title"
