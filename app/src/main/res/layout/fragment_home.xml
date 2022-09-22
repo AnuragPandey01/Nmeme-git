@@ -19,8 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_share"
-        app:backgroundTint="@color/transparent_green"
+        app:backgroundTint="@color/white"
         app:fabSize="mini"
+        app:borderWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="@color/green_350"
@@ -32,12 +33,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_fav"
-        app:backgroundTint="@color/transparent_red"
+        app:borderWidth="1dp"
+        app:backgroundTint="@color/white"
         app:fabSize="mini"
-        app:rippleColor="@color/red_350"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/share_meme"
+        app:layout_constraintEnd_toEndOf="@id/share_meme"
+        app:layout_constraintStart_toStartOf="@id/share_meme"
         android:layout_margin="16dp"
-        android:contentDescription="@string/share" />
+        android:contentDescription="@string/add_to_favourite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

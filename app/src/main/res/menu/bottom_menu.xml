@@ -11,7 +11,7 @@
         android:title="Categories" />
     <item
         android:id="@+id/favouritesFragment"
-        android:icon="@drawable/ic_fav"
+        android:icon="@drawable/ic_filled_favorite"
         android:title="@string/favourites" />
     <item
         android:id="@+id/settingFragment"

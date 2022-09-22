@@ -3,18 +3,16 @@ package com.example.n_meme.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import android.widget.PopupMenu
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.example.n_meme.R
 import com.example.n_meme.databinding.FragmentHomeBinding
 import com.example.n_meme.model.Meme
 import com.example.n_meme.ui.home.adapter.MemeAdapter
-import java.lang.Exception
 
 const val TAG = "HomeFragment"
 class HomeFragment : Fragment() {
