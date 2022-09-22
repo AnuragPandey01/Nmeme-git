@@ -1,14 +1,11 @@
 package com.example.n_meme.ui.home
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.appcompat.view.ContextThemeWrapper
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -23,7 +20,9 @@ const val TAG = "HomeFragment"
 class HomeFragment : Fragment() {
 
     private var addedToFavourites = mutableListOf<String>()
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    val binding : FragmentHomeBinding
+        get() = _binding!!
 
     private val memeAdapter : MemeAdapter by lazy { MemeAdapter(requireContext()) }
     private val memeList: List<Meme> by lazy { memeAdapter.memeList }
@@ -33,7 +32,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         //data binding
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater)
         setOnClickListener()
         initViewPager()
         loadMeme()
@@ -55,6 +54,7 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
 
     private fun setOnClickListener() {
 
@@ -123,4 +123,10 @@ class HomeFragment : Fragment() {
         Toast.makeText(requireContext(),"added to favourite", Toast.LENGTH_SHORT).show()
         addedToFavourites.add(toBeAdded.url)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 }

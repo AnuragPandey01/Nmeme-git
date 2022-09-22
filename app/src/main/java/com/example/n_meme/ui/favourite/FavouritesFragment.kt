@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.n_meme.R
 import com.example.n_meme.ui.favourite.adapter.FavAdapter
 import com.example.n_meme.databinding.FragmentFavouritesBinding
 import com.example.n_meme.model.database.Favourites
@@ -20,13 +18,15 @@ class FavouritesFragment : Fragment() {
     private val favViewModel : FavViewModel by lazy{
         ViewModelProvider(this).get(FavViewModel::class.java)
     }
-    private lateinit var binding: FragmentFavouritesBinding
+    private var _binding: FragmentFavouritesBinding? = null
+    private val binding : FragmentFavouritesBinding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_favourites,container,false)
+        _binding = FragmentFavouritesBinding.inflate(inflater)
         return  binding.root
     }
 
@@ -46,5 +46,10 @@ class FavouritesFragment : Fragment() {
         favViewModel.GetAllFav().favList.observe(viewLifecycleOwner){
             initRecyclerView(it)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
