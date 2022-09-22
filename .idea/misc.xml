@@ -10,6 +10,7 @@
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/drawable/ic_fav.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/drawable/ic_favorite_border.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/drawable/ic_filled_favorite.xml" value="0.218" />
+        <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/drawable/ic_home.xml" value="0.1265" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/drawable/ic_share.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/drawable/popup_menu_background.xml" value="0.1445" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/drawable/rb_custom.xml" value="0.22708333333333333" />
@@ -21,6 +22,7 @@
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/activity_meme.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/detail_fav_item_view.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/fav_item_view.xml" value="0.20677083333333332" />
+        <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/fragment_category.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/fragment_detail_favourite.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/fragment_fav_detail.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/fragment_favourites.xml" value="0.2" />
@@ -28,6 +30,7 @@
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/fragment_setting.xml" value="0.264" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/item_view.xml" value="0.2" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/layout/meme_item_view.xml" value="0.14629629629629629" />
+        <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/menu/bottom_menu.xml" value="0.2046875" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/menu/nmeme_menu.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/pandey anurag/AndroidStudioProjects/NMeme/app/src/main/res/menu/overflow_menu.xml" value="0.2" />
       </map>

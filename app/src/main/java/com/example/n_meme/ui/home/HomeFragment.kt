@@ -61,7 +61,6 @@ class HomeFragment : Fragment() {
         binding.apply {
             shareMeme.setOnClickListener { shareMeme() }
             favMeme.setOnClickListener { addToFav() }
-            overflowMenu.setOnClickListener { setPopUpMenu() }
         }
     }
 
@@ -84,22 +83,6 @@ class HomeFragment : Fragment() {
                 prevPosition = position
             }
         })
-    }
-
-    private fun setPopUpMenu(){
-        val popupMenu = PopupMenu(requireContext(),binding.overflowMenu)
-        popupMenu.inflate(R.menu.overflow_menu)
-
-        popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
-                when(item?.itemId){
-                    R.id.setting -> findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
-                    R.id.fav -> findNavController().navigate(R.id.action_homeFragment_to_favouritesFragment)
-                }
-                return true
-            }
-        })
-        popupMenu.show()
     }
 
     private fun shareMeme() {
