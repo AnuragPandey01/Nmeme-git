@@ -14,4 +14,4 @@ Get the app from our [releases page](https://github.com/AnuragPandey01/Nmeme-git
 
 ## Disclaimer
 
-The developer of this application does not have any affiliation with the content providers available.
+The developer of this application does not have any affiliation with the content providers.
