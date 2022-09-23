@@ -1,6 +1,5 @@
 package com.example.n_meme.ui.home.adapter
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,7 @@ import com.example.n_meme.R
 import com.example.n_meme.model.Meme
 
 
-class MemeAdapter(val context: Context): RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
+class MemeAdapter: RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
 
     private val _memeList: MutableList<Meme> = mutableListOf()
     val memeList: List<Meme>
@@ -30,6 +29,7 @@ class MemeAdapter(val context: Context): RecyclerView.Adapter<MemeAdapter.ViewHo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val context = holder.img.context
         val currMeme = _memeList[position]
 
          Glide.with(context)
@@ -69,6 +69,10 @@ class MemeAdapter(val context: Context): RecyclerView.Adapter<MemeAdapter.ViewHo
         return _memeList.size
     }
 
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        _memeList.clear()
+    }
     inner class ViewHolder( itemView:View):RecyclerView.ViewHolder(itemView){
         val img: ImageView = itemView.findViewById(R.id.meme_img)
     }

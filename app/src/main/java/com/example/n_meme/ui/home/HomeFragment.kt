@@ -22,7 +22,7 @@ class HomeFragment : Fragment() {
     val binding : FragmentHomeBinding
         get() = _binding!!
 
-    private val memeAdapter : MemeAdapter by lazy { MemeAdapter(requireContext()) }
+    private val memeAdapter : MemeAdapter by lazy { MemeAdapter() }
     private val memeList: List<Meme> by lazy { memeAdapter.memeList }
     private val viewModel : HomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -105,9 +105,11 @@ class HomeFragment : Fragment() {
         addedToFavourites.add(toBeAdded.url)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        Log.d(TAG, "onDestroy: called")
+        binding.viewpager.adapter = null
         _binding = null
+        super.onDestroyView()
     }
 
 }
