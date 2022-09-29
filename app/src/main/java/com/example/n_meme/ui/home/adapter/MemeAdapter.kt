@@ -1,6 +1,6 @@
 package com.example.n_meme.ui.home.adapter
 
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ import com.example.n_meme.R
 import com.example.n_meme.model.Meme
 
 
-class MemeAdapter: RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
+class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
 
     private val _memeList: MutableList<Meme> = mutableListOf()
     val memeList: List<Meme>
@@ -24,7 +24,8 @@ class MemeAdapter: RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.meme_item_view,parent,false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.meme_item_view, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -32,36 +33,37 @@ class MemeAdapter: RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
         val context = holder.img.context
         val currMeme = _memeList[position]
 
-         Glide.with(context)
+        Glide.with(context)
+            .asBitmap()
             .load(currMeme.url)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .placeholder(R.drawable.placeholder)
             .thumbnail(
                 Glide.with(context)
+                    .asBitmap()
                     .load(currMeme.preview[1])
             )
-             .listener(object : RequestListener<Drawable>{
-                 override fun onLoadFailed(
-                     e: GlideException?,
-                     model: Any?,
-                     target: Target<Drawable>?,
-                     isFirstResource: Boolean
-                 ): Boolean {
-                       holder.img.setImageResource(R.drawable.failed_placeholder)
-                     return false
-                 }
+            .listener(object : RequestListener<Bitmap> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    holder.img.setImageResource(R.drawable.failed_placeholder)
+                    return false
+                }
 
-                 override fun onResourceReady(
-                     resource: Drawable?,
-                     model: Any?,
-                     target: Target<Drawable>?,
-                     dataSource: DataSource?,
-                     isFirstResource: Boolean
-                 ): Boolean {
-                     return false
-                 }
-
-             })
+                override fun onResourceReady(
+                    resource: Bitmap?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            })
             .into(holder.img)
     }
 
@@ -73,12 +75,13 @@ class MemeAdapter: RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
         super.onDetachedFromRecyclerView(recyclerView)
         _memeList.clear()
     }
-    inner class ViewHolder( itemView:View):RecyclerView.ViewHolder(itemView){
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img: ImageView = itemView.findViewById(R.id.meme_img)
     }
 
-    fun setData(list: List<Meme>){
+    fun setData(list: List<Meme>) {
         _memeList.addAll(list)
-        notifyItemRangeChanged(_memeList.size,7)
+        notifyItemRangeChanged(_memeList.size, 7)
     }
 }

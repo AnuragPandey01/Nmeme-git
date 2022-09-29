@@ -15,6 +15,20 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/download_meme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save"
+        app:backgroundTint="@color/white"
+        app:fabSize="mini"
+        app:borderWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/fav_meme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/green_350"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/share" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/share_meme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
