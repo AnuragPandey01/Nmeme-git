@@ -15,6 +15,7 @@
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"

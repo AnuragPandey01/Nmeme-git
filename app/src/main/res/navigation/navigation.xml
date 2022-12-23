@@ -51,9 +51,4 @@
             app:argType="integer" />
 
     </fragment>
-    <fragment
-        android:id="@+id/categoryFragment"
-        android:name="com.example.n_meme.ui.categories.CategoryFragment"
-        android:label="fragment_category"
-        tools:layout="@layout/fragment_category" />
 </navigation>

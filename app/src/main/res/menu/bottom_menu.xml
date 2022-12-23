@@ -5,10 +5,7 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
         android:title="Home" />
-    <item
-        android:id="@+id/categoryFragment"
-        android:icon="@drawable/ic_category"
-        android:title="Categories" />
+
     <item
         android:id="@+id/favouritesFragment"
         android:icon="@drawable/ic_filled_favorite"
