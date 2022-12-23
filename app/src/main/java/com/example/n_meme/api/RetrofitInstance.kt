@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-const val BASE_URL =  "https://meme-api.herokuapp.com/gimme/"
+const val BASE_URL =  "https://meme-api.com/gimme/"
 
 object RetrofitInstance{
     val api : MemeApiInterface by lazy {
