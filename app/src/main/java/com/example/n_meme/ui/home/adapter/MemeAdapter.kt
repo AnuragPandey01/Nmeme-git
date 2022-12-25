@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -39,7 +40,6 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
             .asBitmap()
             .load(currMeme.url)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .placeholder(R.drawable.placeholder)
             .thumbnail(
                 Glide.with(context)
                     .asBitmap()
@@ -52,7 +52,8 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
                     target: Target<Bitmap>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    holder.img.setImageResource(R.drawable.failed_placeholder)
+                    holder.progress.visibility = View.GONE
+                    holder.img.setImageResource(R.drawable.padded_placeholder)
                     return false
                 }
 
@@ -63,6 +64,7 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
+                    holder.progress.visibility = View.GONE
                     return false
                 }
             })
@@ -81,6 +83,7 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img: ImageView = itemView.findViewById(R.id.meme_img)
         val title: TextView = itemView.findViewById(R.id.meme_title)
+        val progress : ProgressBar = itemView.findViewById(R.id.progress)
     }
 
     fun setData(list: List<Meme>) {

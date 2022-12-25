@@ -14,6 +14,14 @@
         android:scaleType="fitCenter"
         tools:src="@tools:sample/avatars" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        android:indeterminate="true" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/meme_title"
         android:layout_width="match_parent"
