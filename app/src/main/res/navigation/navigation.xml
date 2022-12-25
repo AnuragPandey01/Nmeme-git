@@ -3,19 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/categoryBrowseFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.n_meme.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/categoryBrowseFragment"
+        android:name="com.example.n_meme.ui.home.CategoryBrowseFragment"
+        android:label="fragment_category_browse"
+        tools:layout="@layout/fragment_category_browse" >
         <action
-            android:id="@+id/action_homeFragment_to_favouritesFragment"
+            android:id="@+id/action_categoryBrowseFragment_to_favouritesFragment"
             app:destination="@id/favouritesFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_settingFragment"
+            android:id="@+id/action_categoryBrowseFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_categoryBrowseFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
@@ -23,8 +27,8 @@
         android:label="fragment_favourites"
         tools:layout="@layout/fragment_favourites" >
         <action
-            android:id="@+id/action_favouritesFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_favouritesFragment_to_categoryBrowseFragment"
+            app:destination="@id/categoryBrowseFragment" />
         <action
             android:id="@+id/action_favouritesFragment_to_detailFavouriteFragment"
             app:destination="@id/detailFavouriteFragment" />
@@ -35,8 +39,8 @@
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" >
         <action
-            android:id="@+id/action_settingFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_settingFragment_to_categoryBrowseFragment"
+            app:destination="@id/categoryBrowseFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFavouriteFragment"
@@ -51,4 +55,19 @@
             app:argType="integer" />
 
     </fragment>
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.n_meme.ui.home.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_categoryBrowseFragment"
+            app:destination="@id/categoryBrowseFragment"
+            app:popUpTo="@id/feedFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="categoryIndex"
+            app:argType="integer"/>
+    </fragment>
+
 </navigation>

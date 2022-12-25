@@ -14,4 +14,20 @@
         android:scaleType="fitCenter"
         tools:src="@tools:sample/avatars" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/meme_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingStart="16dp"
+        android:paddingEnd="64dp"
+        android:paddingVertical="16dp"
+        android:textSize="20sp"
+        android:background="@drawable/text_background_gradient"
+        android:textColor="@color/white"
+        app:fontFamily="@font/nunito_sans_bold"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="This is the new meme"/>
+
 </RelativeLayout>

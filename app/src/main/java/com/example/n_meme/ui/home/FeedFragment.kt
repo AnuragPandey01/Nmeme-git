@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,41 +17,48 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.n_meme.databinding.FragmentHomeBinding
+import com.example.n_meme.R
+import com.example.n_meme.databinding.FragmentFeedBinding
 import com.example.n_meme.model.Meme
 import com.example.n_meme.ui.home.adapter.MemeAdapter
-import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
-const val TAG = "HomeFragment"
-class HomeFragment : Fragment() {
+class FeedFragment : Fragment() {
+
+    private var _binding: FragmentFeedBinding? = null
+    private val binding: FragmentFeedBinding
+        get() = _binding!!
 
     private var currentBitmap: Bitmap? = null
     private var addedToFavourites = mutableListOf<String>()
-    private var _binding: FragmentHomeBinding? = null
-    val binding: FragmentHomeBinding
-        get() = _binding!!
-
     private val memeAdapter: MemeAdapter by lazy { MemeAdapter() }
     private val memeList: List<Meme> by lazy { memeAdapter.memeList }
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
     }
+    private val args : FeedFragmentArgs by lazy {
+        FeedFragmentArgs.fromBundle(requireArguments())
+    }
+    
+    //throws an exception if called before onCreate
+    private val category :String by lazy{
+        CategoryBrowseFragment.categories[args.categoryIndex].second
+    }
+
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //data binding
-        _binding = FragmentHomeBinding.inflate(inflater)
+
+        _binding = FragmentFeedBinding.inflate(layoutInflater)
         setOnClickListener()
         initViewPager()
         loadMeme()
@@ -63,11 +69,9 @@ class HomeFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), response.code().toString(), Toast.LENGTH_LONG)
                         .show()
-                    Log.e(TAG, "onCreateView: ${response.errorBody()} ")
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "onCreateView: ${e.stackTrace}")
             Toast.makeText(requireContext(), "Check your connection", Toast.LENGTH_LONG).show()
         }
 
@@ -77,6 +81,10 @@ class HomeFragment : Fragment() {
 
     private fun setOnClickListener() {
         binding.apply {
+
+            btnBack.setOnClickListener {
+                findNavController().navigate(R.id.action_feedFragment_to_categoryBrowseFragment)
+            }
             shareMeme.setOnClickListener { shareMeme() }
             favMeme.setOnClickListener { addToFav() }
             downloadMeme.setOnClickListener {
@@ -101,7 +109,7 @@ class HomeFragment : Fragment() {
 
     private fun loadMeme() {
         if (memeList.size % 7 == 0) {
-            viewModel.getMeme("dankmemes")
+            viewModel.getMeme(category)
         }
     }
 
@@ -191,6 +199,7 @@ class HomeFragment : Fragment() {
             }
             Toast.makeText(requireContext(), "saved image to Gallery", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
+
         } finally {
             outputStream?.close()
         }
@@ -225,7 +234,6 @@ class HomeFragment : Fragment() {
         }
 
     override fun onDestroyView() {
-        Log.d(TAG, "onDestroy: called")
         binding.viewpager.adapter = null
         _binding = null
         super.onDestroyView()

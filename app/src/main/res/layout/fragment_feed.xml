@@ -4,7 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.FeedFragment">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        android:contentDescription="back to categories"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="8dp"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
@@ -19,12 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_save"
-        app:backgroundTint="@color/white"
         app:fabSize="mini"
         app:borderWidth="1dp"
         app:layout_constraintBottom_toTopOf="@id/fav_meme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/green_350"
         android:layout_margin="16dp"
         android:contentDescription="@string/share" />
 
@@ -33,12 +41,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_share"
-        app:backgroundTint="@color/white"
         app:fabSize="mini"
         app:borderWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/green_350"
         android:layout_margin="16dp"
         android:contentDescription="@string/share" />
 
@@ -48,7 +54,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_fav"
         app:borderWidth="1dp"
-        app:backgroundTint="@color/white"
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@id/share_meme"
         app:layout_constraintEnd_toEndOf="@id/share_meme"

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -33,6 +34,7 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
         val context = holder.img.context
         val currMeme = _memeList[position]
 
+        holder.title.text = currMeme.title
         Glide.with(context)
             .asBitmap()
             .load(currMeme.url)
@@ -78,6 +80,7 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img: ImageView = itemView.findViewById(R.id.meme_img)
+        val title: TextView = itemView.findViewById(R.id.meme_title)
     }
 
     fun setData(list: List<Meme>) {
