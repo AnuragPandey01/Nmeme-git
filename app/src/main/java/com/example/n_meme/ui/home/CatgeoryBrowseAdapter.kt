@@ -3,8 +3,10 @@ package com.example.n_meme.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.n_meme.R
 
@@ -20,7 +22,17 @@ class CategoryBrowseAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.categoryTitle.text = categories[position].first
+
+        //getting view value resources
+        val context = holder.categoryTitle.context
+        val categoryTitle = categories[position].first
+        val drawableUri = "@drawable/${categoryTitle.lowercase()}"
+        val imageResource = context.resources.getIdentifier(drawableUri,null,context.packageName)
+
+        //setting views
+        holder.memeCoverIcon.setImageDrawable(ContextCompat.getDrawable(context,imageResource))
+        holder.categoryTitle.text = categoryTitle
+
         holder.root.setOnClickListener {
             onItemClick(position)
         }
@@ -32,5 +44,6 @@ class CategoryBrowseAdapter(
     inner class ViewHolder(private val itemview: View): RecyclerView.ViewHolder(itemview){
         val categoryTitle = itemview.findViewById<TextView>(R.id.category_title)
         val root = itemview.findViewById<CardView>(R.id.root)
+        val memeCoverIcon : ImageView = itemView.findViewById(R.id.meme_cover_icon)
     }
 }

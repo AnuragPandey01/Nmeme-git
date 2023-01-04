@@ -7,13 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="transparent_purple">#F2EBDBFE</color>
-    <color name="purple_350">#B47AFE</color>
-    <color name="transparent_green">#F2E4FEDB</color>
-    <color name="green_350">#7BEA6F</color>
-    <color name="transparent_red">#FBFFD8DA</color>
     <color name="red_350">#FE7A87</color>
-    <color name="background_color">#E7E6E6</color>
+    <color name="background_color">#121212</color>
     <color name="blue_200">#78a5f8</color>
     <color name="blue_500">#558af0</color>
     <color name="grey">#3F3C3C</color>
