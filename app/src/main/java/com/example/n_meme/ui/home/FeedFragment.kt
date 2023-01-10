@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -36,7 +37,6 @@ class FeedFragment : Fragment() {
     private val binding: FragmentFeedBinding
         get() = _binding!!
 
-    private var currentBitmap: Bitmap? = null
     private var addedToFavourites = mutableListOf<String>()
     private val memeAdapter: MemeAdapter by lazy { MemeAdapter() }
     private val memeList: List<Meme> by lazy { memeAdapter.memeList }
@@ -96,7 +96,6 @@ class FeedFragment : Fragment() {
                             resource: Bitmap,
                             transition: Transition<in Bitmap>?
                         ) {
-                            currentBitmap = resource
                             saveImage(resource)
                         }
 
@@ -158,8 +157,7 @@ class FeedFragment : Fragment() {
             * storing the image bitmap to a global variable so that if perm granted it could save the image by providing bitmap
             * from the global variable
             * */
-            currentBitmap = bitmap
-            requestPermission()
+            requestPermission(bitmap)
             return
         }
 
@@ -199,7 +197,7 @@ class FeedFragment : Fragment() {
             }
             Toast.makeText(requireContext(), "saved image to Gallery", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
-
+            e.printStackTrace()
         } finally {
             outputStream?.close()
         }
@@ -208,23 +206,42 @@ class FeedFragment : Fragment() {
     private fun hasWriteExternalStoragePerm() =
         requireContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
-    private fun requestPermission() {
+    private fun requestPermission(bitmap: Bitmap) {
         //showing rationale if denied many time
         if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Toast.makeText(requireContext(), "This permission is needed to store image in external storage", Toast.LENGTH_SHORT).show()
             return
         }
-        requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        getPermActivityResultLauncher {
+            saveImage(bitmap)
+        }.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     }
 
-    private val requestPermissionLauncher =
-        registerForActivityResult(
+    /**
+     * registerForActivityResult basically opens an activity and returns result from the activity
+     *
+     * params :
+     *  1. ActivityResultContract -
+     *      A contract specifying that an activity can be called with an input of type I and produce an output of type O.
+     *      here, I is string i.e permission to be asked and O is boolean
+     *  2. ActivityResultCallback provides the result[in type pf Output O as defined in param 1]
+     *
+     *  returns :
+     *   ActivityResultLauncher -
+     *      this can be used to launch the activity for result by using [.launch()] method . This method
+     *      takes the input value I of the contract as specified by param 1.
+     */
+
+    private fun getPermActivityResultLauncher(onPermGranted: ()-> Unit):ActivityResultLauncher<String>{
+        return registerForActivityResult(
             ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                saveImage(currentBitmap!!)
-            } else {
+        ){ isGranted:Boolean ->
+            if(isGranted){
+                onPermGranted()
+            }
+            else{
                 Toast.makeText(
                     requireContext(),
                     "To save image permission is required",
@@ -232,6 +249,7 @@ class FeedFragment : Fragment() {
                 ).show()
             }
         }
+    }
 
     override fun onDestroyView() {
         binding.viewpager.adapter = null
