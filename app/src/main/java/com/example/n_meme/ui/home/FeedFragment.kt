@@ -1,22 +1,16 @@
 package com.example.n_meme.ui.home
 
 import android.Manifest
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -26,12 +20,11 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.n_meme.R
 import com.example.n_meme.databinding.FragmentFeedBinding
 import com.example.n_meme.model.Meme
+import com.example.n_meme.ui.base.BaseFragment
 import com.example.n_meme.ui.home.adapter.MemeAdapter
-import java.io.File
-import java.io.IOException
-import java.io.OutputStream
+import com.example.n_meme.util.ImageSaver
 
-class FeedFragment : Fragment() {
+class FeedFragment : BaseFragment() {
 
     private var _binding: FragmentFeedBinding? = null
     private val binding: FragmentFeedBinding
@@ -152,104 +145,25 @@ class FeedFragment : Fragment() {
 
     private fun saveImage(bitmap: Bitmap) {
 
+        val currentMeme = memeList[binding.viewpager.currentItem]
+
         if (Build.VERSION.SDK_INT < 29 && !hasWriteExternalStoragePerm()) {
             /*
             * storing the image bitmap to a global variable so that if perm granted it could save the image by providing bitmap
             * from the global variable
             * */
-            requestPermission(bitmap)
+            requestPermission{
+                saveImage(bitmap)
+            }
             return
         }
 
-        val currentMeme = memeList[binding.viewpager.currentItem]
-        val name = "${currentMeme.title} by ${currentMeme.author}"
-        val relativePath = Environment.DIRECTORY_PICTURES + File.separator + "Nmeme"
-        val contentValues = ContentValues().apply {
-            put(MediaStore.Images.ImageColumns.DISPLAY_NAME, name)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-
-            // without this part causes "Failed to create new MediaStore record" exception to be invoked (uri is null below)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                put(MediaStore.Images.ImageColumns.RELATIVE_PATH, relativePath)
-            }
-        }
-        val contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-
-        var outputStream: OutputStream? = null
-        try {
-
-            /*
-            * creating an outputStream
-            * stream : streams are the sequence of data that are read from the source and written to the destination
-            * An input stream is used to read data from the source. And, an output stream is used to write data to the destination.
-            */
-
-            val resolver = requireContext().contentResolver
-
-            val uri = resolver.insert(contentUri, contentValues)
-                ?: throw IOException("Failed to create new MediaStore record.")
-
-            outputStream = resolver.openOutputStream(uri)
-                ?: throw IOException("Failed to create output stream")
-
-            if (!bitmap.compress(Bitmap.CompressFormat.PNG, 95, outputStream)) {
-                throw IOException("Failed to save bitmap.")
-            }
-            Toast.makeText(requireContext(), "saved image to Gallery", Toast.LENGTH_SHORT).show()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } finally {
-            outputStream?.close()
-        }
+        ImageSaver.saveImage(requireContext(),bitmap,currentMeme.title )
     }
 
     private fun hasWriteExternalStoragePerm() =
         requireContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
-    private fun requestPermission(bitmap: Bitmap) {
-        //showing rationale if denied many time
-        if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            Toast.makeText(requireContext(), "This permission is needed to store image in external storage", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        getPermActivityResultLauncher {
-            saveImage(bitmap)
-        }.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-    }
-
-    /**
-     * registerForActivityResult basically opens an activity and returns result from the activity
-     *
-     * params :
-     *  1. ActivityResultContract -
-     *      A contract specifying that an activity can be called with an input of type I and produce an output of type O.
-     *      here, I is string i.e permission to be asked and O is boolean
-     *  2. ActivityResultCallback provides the result[in type pf Output O as defined in param 1]
-     *
-     *  returns :
-     *   ActivityResultLauncher -
-     *      this can be used to launch the activity for result by using [.launch()] method . This method
-     *      takes the input value I of the contract as specified by param 1.
-     */
-
-    private fun getPermActivityResultLauncher(onPermGranted: ()-> Unit):ActivityResultLauncher<String>{
-        return registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ){ isGranted:Boolean ->
-            if(isGranted){
-                onPermGranted()
-            }
-            else{
-                Toast.makeText(
-                    requireContext(),
-                    "To save image permission is required",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
 
     override fun onDestroyView() {
         binding.viewpager.adapter = null

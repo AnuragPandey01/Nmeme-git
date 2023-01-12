@@ -17,14 +17,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <CheckBox
-        android:id="@+id/cb_fav"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:button="@drawable/favourite_selector"
-        app:useMaterialThemeColors = "false"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/download_meme"
         android:layout_width="wrap_content"
-        android:checked="true"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save"
+        app:fabSize="mini"
+        app:borderWidth="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/share" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
