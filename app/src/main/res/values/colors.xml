@@ -10,6 +10,9 @@
     <color name="red_350">#FE7A87</color>
     <color name="background_color">#121212</color>
     <color name="blue_200">#78a5f8</color>
+    <color name="red_200">#F87878</color>
+    <color name="green_200">#78F889</color>
     <color name="blue_500">#558af0</color>
+    <color name="green_500">#46C437</color>
     <color name="grey">#3F3C3C</color>
 </resources>
