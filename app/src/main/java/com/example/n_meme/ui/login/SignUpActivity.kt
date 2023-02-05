@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import com.example.n_meme.databinding.ActivitySignUpBinding
 import com.example.n_meme.ui.MainActivity
 import com.example.n_meme.util.hideKeyboard
@@ -19,6 +20,15 @@ class SignUpActivity : AppCompatActivity() {
     private var _binding: ActivitySignUpBinding? = null
     private val binding: ActivitySignUpBinding
         get() = _binding!!
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser != null && currentUser.isEmailVerified) {
+            navigateToMainActivity()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
