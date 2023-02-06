@@ -71,6 +71,7 @@ class SignUpActivity : AppCompatActivity() {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    Toast.makeText(this,"you are now registered",Toast.LENGTH_LONG).show()
                     navigateToLoginActivity()
                 } else {
                     Toast.makeText(this, "${task.exception}", Toast.LENGTH_SHORT).show()
@@ -80,18 +81,6 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
     }
-
-    /*private fun showErrorDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Login Failed")
-            .setMessage("The user already exists. Please try again.")
-            .setPositiveButton(
-                "OK"
-            ) { dialog: DialogInterface, which: Int ->
-                dialog.dismiss()
-            }
-            .show()
-    }*/
 
     private fun navigateToLoginActivity() {
         startActivity(Intent(this, LoginActivity::class.java))

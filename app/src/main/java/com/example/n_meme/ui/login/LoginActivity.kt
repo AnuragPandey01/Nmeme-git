@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.n_meme.R
 import com.example.n_meme.databinding.ActivityLoginBinding
 import com.example.n_meme.ui.MainActivity
 import com.example.n_meme.util.hideKeyboard
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -27,13 +29,8 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = firebaseAuth.currentUser
-        if (currentUser != null) {
-            if (!currentUser.isEmailVerified) {
-                sendEmailVerification(currentUser)
-                return
-            }
+        if (currentUser != null && currentUser.isEmailVerified) {
             navigateToMainActivity()
-
         }
     }
 
@@ -73,7 +70,8 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val currentUser = task.result.user!!
                     if (!currentUser.isEmailVerified) {
-                        sendEmailVerification(currentUser)
+                        showVerificationDialog(currentUser)
+                        return@addOnCompleteListener
                     }
                     navigateToMainActivity()
                     return@addOnCompleteListener
@@ -85,6 +83,20 @@ class LoginActivity : AppCompatActivity() {
                 binding.btnResetPassword.visibility = View.VISIBLE
                 toggleInputs(true)
             }
+    }
+
+    private fun showVerificationDialog(currentUser: FirebaseUser) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Verify email")
+            .setMessage("looks like your email is not verified.Press verify to proceed")
+            .setPositiveButton("verify"){ dialog, _ ->
+                sendEmailVerification(currentUser)
+                dialog.dismiss()
+            }
+            .setNegativeButton("cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun toggleInputs(enabled: Boolean) {
@@ -104,7 +116,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendEmailVerification(currentUser: FirebaseUser) {
-        binding.tvError.visibility = View.VISIBLE
+
+        toggleInputs(true)
         binding.loginButton.visibility = View.VISIBLE
         binding.progressBar.visibility = View.GONE
         binding.btnResetPassword.visibility = View.VISIBLE
@@ -125,6 +138,7 @@ class LoginActivity : AppCompatActivity() {
             }
             binding.tvError.text =
                 "some error occurred while the sending verification email. Try again later"
+            binding.tvError.visibility = View.VISIBLE
         }
     }
 

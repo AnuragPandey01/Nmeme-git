@@ -11,5 +11,6 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/background_color</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
 </resources>
