@@ -15,7 +15,7 @@
             app:destination="@id/favouritesFragment" />
         <action
             android:id="@+id/action_categoryBrowseFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
+            app:destination="@id/AboutFragment" />
         <action
             android:id="@+id/action_categoryBrowseFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
@@ -34,10 +34,10 @@
             app:destination="@id/detailFavouriteFragment" />
     </fragment>
     <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.example.n_meme.ui.setting.SettingFragment"
+        android:id="@+id/AboutFragment"
+        android:name="com.example.n_meme.ui.setting.AboutFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" >
+        tools:layout="@layout/fragment_about" >
         <action
             android:id="@+id/action_settingFragment_to_categoryBrowseFragment"
             app:destination="@id/categoryBrowseFragment" />

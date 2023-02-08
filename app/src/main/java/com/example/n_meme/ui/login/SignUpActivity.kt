@@ -1,15 +1,19 @@
 package com.example.n_meme.ui.login
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.n_meme.R
 import com.example.n_meme.databinding.ActivitySignUpBinding
 import com.example.n_meme.ui.MainActivity
 import com.example.n_meme.util.hideKeyboard
 import com.example.n_meme.util.isValidEmail
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -70,6 +74,10 @@ class SignUpActivity : AppCompatActivity() {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    val profileUpdates = userProfileChangeRequest {
+                        displayName = binding.displayNameInput.text.toString()
+                    }
+                    task.result.user?.updateProfile(profileUpdates)
                     Toast.makeText(this,"you are now registered",Toast.LENGTH_LONG).show()
                     navigateToLoginActivity()
                 } else {
@@ -77,6 +85,7 @@ class SignUpActivity : AppCompatActivity() {
                     toggleInputs(true)
                     binding.signupButton.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.INVISIBLE
+                    binding.goToLoginBtn.visibility = View.VISIBLE
                 }
             }
     }

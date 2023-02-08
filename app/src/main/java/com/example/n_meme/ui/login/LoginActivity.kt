@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.VISIBLE
         binding.loginButton.visibility = View.GONE
         binding.btnResetPassword.visibility = View.GONE
-
+        binding.goToSignupBtn.visibility = View.GONE
 
         val email = binding.loginInput.text.toString()
         val password = binding.passwordInput.text.toString()
@@ -80,6 +80,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.loginButton.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
                 binding.btnResetPassword.visibility = View.VISIBLE
+                binding.goToSignupBtn.visibility = View.VISIBLE
                 toggleInputs(true)
             }
     }
@@ -120,6 +121,7 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.visibility = View.VISIBLE
         binding.progressBar.visibility = View.GONE
         binding.btnResetPassword.visibility = View.VISIBLE
+
         currentUser.sendEmailVerification().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val snackbar = Snackbar.make(
