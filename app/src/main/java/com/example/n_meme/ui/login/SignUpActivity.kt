@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.example.n_meme.databinding.ActivitySignUpBinding
 import com.example.n_meme.ui.MainActivity
 import com.example.n_meme.util.hideKeyboard
