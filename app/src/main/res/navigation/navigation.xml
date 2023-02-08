@@ -11,24 +11,14 @@
         android:label="fragment_category_browse"
         tools:layout="@layout/fragment_category_browse" >
         <action
-            android:id="@+id/action_categoryBrowseFragment_to_favouritesFragment"
-            app:destination="@id/favouritesFragment" />
-        <action
-            android:id="@+id/action_categoryBrowseFragment_to_settingFragment"
-            app:destination="@id/AboutFragment" />
-        <action
             android:id="@+id/action_categoryBrowseFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
-
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.example.n_meme.ui.favourite.FavouritesFragment"
         android:label="fragment_favourites"
         tools:layout="@layout/fragment_favourites" >
-        <action
-            android:id="@+id/action_favouritesFragment_to_categoryBrowseFragment"
-            app:destination="@id/categoryBrowseFragment" />
         <action
             android:id="@+id/action_favouritesFragment_to_detailFavouriteFragment"
             app:destination="@id/detailFavouriteFragment" />
@@ -38,9 +28,6 @@
         android:name="com.example.n_meme.ui.setting.AboutFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_about" >
-        <action
-            android:id="@+id/action_settingFragment_to_categoryBrowseFragment"
-            app:destination="@id/categoryBrowseFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFavouriteFragment"
