@@ -20,7 +20,7 @@ class AboutFragment : Fragment() {
     ): View {
         _binding = FragmentAboutBinding.inflate(layoutInflater)
         Glide.with(requireContext())
-            .load("https://drive.google.com/file/d/19tyi66CcqgwtloZYx0guwXf3bhJLKb9J/view?usp=share_link")
+            .load("https://i.postimg.cc/kg0ZLVJK/IMG-20221009-033011-2.jpg")
             .into(binding.devImg)
         // Inflate the layout for this fragment
         return binding.root

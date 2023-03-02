@@ -53,12 +53,7 @@ class SignUpActivity : AppCompatActivity() {
 
         //update ui
         hideKeyboard()
-        toggleInputs(false)
-        binding.signupButton.visibility = View.GONE
-        binding.progressBar.visibility = View.VISIBLE
-        binding.goToLoginBtn.visibility = View.GONE
-
-        //
+        //validate
         val email = binding.emailInput.text.toString()
         val password = binding.passwordInput.text.toString()
         val confirmPassword = binding.confirmPasswordInput.text.toString()
@@ -70,6 +65,12 @@ class SignUpActivity : AppCompatActivity() {
             binding.textEmailLayout.error = "please enter a valid email"
             return
         }
+
+        //signup begins
+        toggleInputs(false)
+        binding.signupButton.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+        binding.goToLoginBtn.visibility = View.GONE
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->

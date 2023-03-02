@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".ui.profile.ProfileFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profile_img_holder"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="40dp"
+        app:strokeColor="@color/blue_500"
+        android:layout_marginTop="16dp"
+        app:strokeWidth="2dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_profile_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@color/ic_launcher_background" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tv_display_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        tools:text="display name" />
+
+    <TextView
+        android:id="@+id/tv_user_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#888888"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        tools:text="hello@hello.com" />
+    
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:layout_margin="8dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prefrences"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Only Download over Wi-Fi"/>
+
+    <TextView
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:textSize="18sp"
+        android:drawablePadding="5dp"
+        android:textColor="@color/red_200"
+        android:layout_marginTop="16dp"
+        app:drawableStartCompat="@drawable/ic_logout" />
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
