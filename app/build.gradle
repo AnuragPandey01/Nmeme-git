@@ -81,7 +81,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
 
     //navigation component
-    def nav_version = "2.5.2"
+    def nav_version = "2.5.3"
     implementation ("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation ("androidx.navigation:navigation-ui-ktx:$nav_version")
 
@@ -101,6 +101,8 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth-ktx'
+
+    implementation 'com.airbnb.android:lottie:6.0.0'
 
 
 }

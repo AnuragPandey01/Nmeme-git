@@ -13,4 +13,8 @@
         <item name="android:statusBarColor">@color/background_color</item>
         <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
+
+    <style name="AlertDialogStyle" parent="Theme.Material3.Dark.Dialog">
+
+    </style>
 </resources>

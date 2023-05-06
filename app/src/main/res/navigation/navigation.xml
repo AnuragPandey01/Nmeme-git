@@ -3,17 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/categoryBrowseFragment">
+    app:startDestination="@id/feedFragment">
 
-    <fragment
-        android:id="@+id/categoryBrowseFragment"
-        android:name="com.example.n_meme.ui.home.CategoryBrowseFragment"
-        android:label="fragment_category_browse"
-        tools:layout="@layout/fragment_category_browse" >
-        <action
-            android:id="@+id/action_categoryBrowseFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
-    </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.example.n_meme.ui.favourite.FavouritesFragment"
@@ -44,18 +35,9 @@
     </fragment>
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.example.n_meme.ui.home.FeedFragment"
+        android:name="com.example.n_meme.ui.home.view.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" >
-        <action
-            android:id="@+id/action_feedFragment_to_categoryBrowseFragment"
-            app:destination="@id/categoryBrowseFragment"
-            app:popUpTo="@id/feedFragment"
-            app:popUpToInclusive="true" />
-        <argument
-            android:name="categoryIndex"
-            app:argType="integer"/>
-    </fragment>
+        tools:layout="@layout/fragment_feed" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.n_meme.ui.profile.ProfileFragment"

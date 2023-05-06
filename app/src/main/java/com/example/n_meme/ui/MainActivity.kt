@@ -25,7 +25,7 @@ open class MainActivity : AppCompatActivity(){
         //disable bottom navigation for certain fragments
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id){
-                R.id.detailFavouriteFragment,R.id.feedFragment -> bottomNavigation.visibility = View.GONE
+                R.id.detailFavouriteFragment -> bottomNavigation.visibility = View.GONE
                 else -> bottomNavigation.visibility = View.VISIBLE
             }
         }

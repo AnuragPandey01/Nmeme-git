@@ -15,7 +15,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.n_meme.R
-import com.example.n_meme.model.Meme
+import com.example.n_meme.data.model.Meme
 
 
 class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
@@ -86,8 +86,13 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
         val progress : ProgressBar = itemView.findViewById(R.id.progress)
     }
 
-    fun setData(list: List<Meme>) {
+    fun addData(list: List<Meme>) {
         _memeList.addAll(list)
         notifyItemRangeChanged(_memeList.size, 7)
+    }
+
+    fun resetData(){
+        _memeList.clear()
+        notifyDataSetChanged()
     }
 }

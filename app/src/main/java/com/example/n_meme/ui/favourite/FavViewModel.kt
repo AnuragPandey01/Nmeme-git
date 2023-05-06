@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.n_meme.model.database.FavDao
-import com.example.n_meme.model.database.FavDataBase
-import com.example.n_meme.model.database.Favourites
+import com.example.n_meme.data.local.database.FavDao
+import com.example.n_meme.data.local.database.FavDataBase
+import com.example.n_meme.data.local.database.Favourites
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 

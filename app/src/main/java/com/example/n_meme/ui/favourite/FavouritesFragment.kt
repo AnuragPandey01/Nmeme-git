@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.n_meme.ui.favourite.adapter.FavAdapter
 import com.example.n_meme.databinding.FragmentFavouritesBinding
-import com.example.n_meme.model.database.Favourites
+import com.example.n_meme.data.local.database.Favourites
 
 
 class FavouritesFragment : Fragment() {
