@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nmeme">
         <activity
-            android:name=".ui.auth.view.SignUpActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -28,19 +28,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.auth.view.LoginActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.MainActivity"
-            android:exported="true"
-            android:hardwareAccelerated="true">
-
         </activity>
     </application>
 

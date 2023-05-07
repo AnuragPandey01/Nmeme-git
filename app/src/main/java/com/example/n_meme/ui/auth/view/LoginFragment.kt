@@ -1,51 +1,60 @@
 package com.example.n_meme.ui.auth.view
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.n_meme.R
-import com.example.n_meme.databinding.ActivityLoginBinding
-import com.example.n_meme.ui.MainActivity
-import com.example.n_meme.ui.auth.Intent.LoginIntent
+import com.example.n_meme.databinding.FragmentLoginBinding
+import com.example.n_meme.ui.auth.intent.LoginIntent
 import com.example.n_meme.ui.auth.viewState.LoginState
 import com.example.n_meme.ui.auth.viewmodel.LoginViewModel
-import com.example.n_meme.util.hideKeyboard
+import com.example.n_meme.ui.base.BaseFragment
+import com.example.n_meme.util.showToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginFragment : BaseFragment() {
 
     private val viewModel by viewModels<LoginViewModel>()
 
-    private var _binding: ActivityLoginBinding? = null
-    private val binding: ActivityLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private val binding: FragmentLoginBinding
         get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            viewModel.intent.send(LoginIntent.CheckSignedIn)
+        }
+    }
 
-        _binding = ActivityLoginBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater)
         setUpOnClickListener()
         observeState()
+        return binding.root
     }
 
     private fun setUpOnClickListener() {
         binding.goToSignupBtn.setOnClickListener {
-            navigateToSignupActivity()
+            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
         }
 
         binding.loginButton.setOnClickListener {
-            hideKeyboard()
+            //requireContext().hideKeyboard()
 
             val email = binding.loginInput.text.toString()
             val password = binding.passwordInput.text.toString()
@@ -56,27 +65,27 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnResetPassword.setOnClickListener {
-            Toast.makeText(this,"mail at nmeme-support@droidev.xyz to initiate password reset email",Toast.LENGTH_LONG).show()
+            requireContext().showToast("mail at nmeme-support@droidev.xyz to initiate password reset email")
         }
     }
 
     private fun observeState() {
         lifecycleScope.launch {
-            viewModel.state.collect{
-                when(it){
+            viewModel.state.collect {
+                when (it) {
                     is LoginState.Idle -> {}
 
-                    is LoginState.Loading ->{
+                    is LoginState.Loading -> {
                         clearError()
                         toggleLoading(true)
                     }
 
-                    is LoginState.LoginSuccess ->{
+                    is LoginState.LoginSuccess -> {
                         toggleLoading(false)
-                        navigateToMainActivity()
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryBrowseFragment())
                     }
 
-                    is LoginState.UnverifiedEmail ->{
+                    is LoginState.UnverifiedEmail -> {
                         toggleLoading(false)
                         showVerificationDialog()
                     }
@@ -86,22 +95,36 @@ class LoginActivity : AppCompatActivity() {
                         setError("Incorrect Username or password")
                     }
 
-                    is LoginState.EmailSendSuccess ->{
+                    is LoginState.EmailSendSuccess -> {
                         toggleLoading(false)
                         val snackbar = Snackbar.make(
                             binding.root,
                             "A verification email is sent on your email address",
                             Snackbar.LENGTH_LONG
                         )
-                        snackbar.setBackgroundTint(ContextCompat.getColor(this@LoginActivity, R.color.green_200))
-                        snackbar.setTextColor(ContextCompat.getColor(this@LoginActivity, R.color.white))
+                        snackbar.setBackgroundTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.green_200
+                            )
+                        )
+                        snackbar.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.white
+                            )
+                        )
                         snackbar.show()
                         setError("A verification email is sent on your email addres")
                     }
 
-                    is LoginState.EmailSendFailure ->{
+                    is LoginState.EmailSendFailure -> {
                         toggleLoading(false)
                         setError("some error occurred while the sending verification email. Try again later")
+                    }
+
+                    is LoginState.AlreadySignedIn ->{
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryBrowseFragment())
                     }
                 }
             }
@@ -109,10 +132,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showVerificationDialog() {
-        MaterialAlertDialogBuilder(this)
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle("Verify email")
             .setMessage("looks like your email is not verified.Press verify to proceed")
-            .setPositiveButton("verify"){ dialog, _ ->
+            .setPositiveButton("verify") { dialog, _ ->
                 lifecycleScope.launch {
                     viewModel.intent.send(LoginIntent.SendVerificationEmail)
                 }
@@ -126,12 +149,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun toggleLoading(loading: Boolean) {
 
-        if(loading){
+        if (loading) {
             binding.progressBar.visibility = View.VISIBLE
             binding.goToSignupBtn.visibility = View.GONE
             binding.btnResetPassword.visibility = View.GONE
             binding.loginButton.visibility = View.GONE
-        }else{
+        } else {
             binding.progressBar.visibility = View.GONE
             binding.goToSignupBtn.visibility = View.VISIBLE
             binding.btnResetPassword.visibility = View.VISIBLE
@@ -142,24 +165,12 @@ class LoginActivity : AppCompatActivity() {
         binding.goToSignupBtn.isEnabled = !loading
     }
 
-    private fun setError(errorMsg: String){
+    private fun setError(errorMsg: String) {
         binding.tvError.text = errorMsg
         binding.tvError.visibility = View.VISIBLE
     }
 
-    private fun clearError(){
+    private fun clearError() {
         binding.tvError.visibility = View.GONE
     }
-
-    private fun navigateToSignupActivity() {
-        startActivity(Intent(this, SignUpActivity::class.java))
-        finish()
-    }
-
-    private fun navigateToMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
-    }
-
-
 }

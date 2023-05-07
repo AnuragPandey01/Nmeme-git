@@ -8,4 +8,5 @@ sealed class LoginState {
     class Error(val message: String): LoginState()
     object EmailSendSuccess : LoginState()
     object EmailSendFailure : LoginState()
+    object AlreadySignedIn : LoginState()
 }

@@ -3,7 +3,7 @@ package com.example.n_meme.ui.auth.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.n_meme.data.local.PreferenceManager
-import com.example.n_meme.ui.auth.Intent.LoginIntent
+import com.example.n_meme.ui.auth.intent.LoginIntent
 import com.example.n_meme.ui.auth.viewState.LoginState
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,6 +39,13 @@ class LoginViewModel @Inject constructor(
                 when(it){
                     is LoginIntent.LoginUser -> loginUser(it.email, it.password)
                     is LoginIntent.SendVerificationEmail -> sendEmailVerification()
+                    is LoginIntent.CheckSignedIn -> {
+                        firebaseAuth.currentUser?.let { user ->
+                            if(user.isEmailVerified){
+                                _state.value = LoginState.AlreadySignedIn
+                            }
+                        }
+                    }
                 }
             }
         }

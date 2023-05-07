@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.n_meme.databinding.FragmentProfileBinding
-import com.example.n_meme.ui.auth.view.SignUpActivity
+import com.example.n_meme.ui.auth.view.SignupFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -36,9 +37,7 @@ class ProfileFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             firebaseAuth.signOut()
-            startActivity(Intent(requireContext(), SignUpActivity::class.java))
-            activity?.finish()
-
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
         }
 
         // currentUser.photoUrl returns null

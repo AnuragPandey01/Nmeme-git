@@ -1,7 +1,7 @@
 package com.example.n_meme.ui.auth.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.n_meme.ui.auth.Intent.SignupIntent
+import com.example.n_meme.ui.auth.intent.SignupIntent
 import com.example.n_meme.ui.auth.viewState.SignupState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,18 +31,9 @@ class SignupViewModel : ViewModel() {
 
     private fun observeIntent() {
         viewModelScope.launch {
-            intent.consumeAsFlow().collect{ it ->
+            intent.consumeAsFlow().collect{
                 when(it){
                     is SignupIntent.SignupUser -> signUpUser(it.displayName, it.email, it.password)
-
-                    is SignupIntent.CheckSignedIn -> {
-                        firebaseAuth.currentUser?.let { user ->
-                            if(user.isEmailVerified){
-                                _state.value = SignupState.UserVerified
-                            }
-                        }
-                    }
-
                 }
             }
         }

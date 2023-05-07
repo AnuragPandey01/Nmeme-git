@@ -1,40 +1,36 @@
 package com.example.n_meme.ui.auth.view
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.n_meme.databinding.ActivitySignUpBinding
-import com.example.n_meme.ui.MainActivity
-import com.example.n_meme.ui.auth.Intent.SignupIntent
+import androidx.navigation.fragment.findNavController
+import com.example.n_meme.databinding.FragmentSignupBinding
+import com.example.n_meme.ui.auth.intent.SignupIntent
 import com.example.n_meme.ui.auth.viewState.SignupState
 import com.example.n_meme.ui.auth.viewmodel.SignupViewModel
-import com.example.n_meme.util.hideKeyboard
+import com.example.n_meme.ui.base.BaseFragment
 import kotlinx.coroutines.launch
 
-class SignUpActivity : AppCompatActivity() {
+class SignupFragment :BaseFragment() {
 
     private val viewModel by viewModels<SignupViewModel>()
-    private var _binding: ActivitySignUpBinding? = null
-    private val binding: ActivitySignUpBinding
+    private var _binding: FragmentSignupBinding? = null
+    private val binding: FragmentSignupBinding
         get() = _binding!!
 
-    public override fun onStart() {
-        super.onStart()
-        lifecycleScope.launch{
-            viewModel.intent.send(SignupIntent.CheckSignedIn)
-        }
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivitySignUpBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSignupBinding.inflate(inflater)
         setOnClickListener()
         observeState()
+        return binding.root
     }
 
     private fun observeState() {
@@ -49,13 +45,10 @@ class SignUpActivity : AppCompatActivity() {
                         toggleLoadingState(false)
                     }
                     is SignupState.SignUpSuccess -> {
-                        navigateToLoginActivity()
+                        findNavController().navigate(SignupFragmentDirections.actionSignupFragmentToLoginFragment())
                     }
                     is SignupState.SignUpError ->{
                         toggleLoadingState(true)
-                    }
-                    is SignupState.UserVerified -> {
-                        navigateToMainActivity()
                     }
                 }
             }
@@ -66,7 +59,7 @@ class SignUpActivity : AppCompatActivity() {
 
         binding.signupButton.setOnClickListener {
             //
-            hideKeyboard()
+            //hideKeyboard()
             //
             val email = binding.emailInput.text.toString()
             val password = binding.passwordInput.text.toString()
@@ -78,18 +71,8 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.goToLoginBtn.setOnClickListener {
-            navigateToLoginActivity()
+            findNavController().navigate(SignupFragmentDirections.actionSignupFragmentToLoginFragment())
         }
-    }
-
-    private fun navigateToLoginActivity() {
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
-    }
-
-    private fun navigateToMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
     }
 
     private fun toggleLoadingState(enabled: Boolean) {

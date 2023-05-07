@@ -6,5 +6,4 @@ sealed class SignupState {
     object SignUpSuccess : SignupState()
     class SignUpError(val message: String) : SignupState()
     object InvalidEmail: SignupState()
-    object UserVerified : SignupState()
 }
