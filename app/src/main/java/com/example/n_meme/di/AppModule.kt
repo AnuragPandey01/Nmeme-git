@@ -1,11 +1,14 @@
 package com.example.n_meme.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.example.n_meme.data.api.MemeApiService
 import com.example.n_meme.commons.BASE_URL
+import com.example.n_meme.commons.PREF_NAME
 import com.example.n_meme.data.local.FavDao
 import com.example.n_meme.data.local.FavDataBase
+import com.example.n_meme.data.local.PreferenceManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,5 +41,17 @@ class AppModule {
     @Provides
     fun providesFavDatabaseInstance(@ApplicationContext context: Context): FavDao {
         return Room.databaseBuilder(context, FavDataBase::class.java, "favDB").build().favDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesSharedPreference(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+    }
+
+    @Singleton
+    @Provides
+    fun providesPreferenceManager(sharedPreferences: SharedPreferences): PreferenceManager {
+        return PreferenceManager(sharedPreferences)
     }
 }

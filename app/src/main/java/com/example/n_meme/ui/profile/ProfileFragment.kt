@@ -40,6 +40,7 @@ class ProfileFragment : Fragment() {
             activity?.finish()
 
         }
+
         // currentUser.photoUrl returns null
         /*Glide.with(requireContext())
             .load(currentUser.photoUrl)

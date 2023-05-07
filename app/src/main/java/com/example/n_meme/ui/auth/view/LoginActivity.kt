@@ -17,8 +17,10 @@ import com.example.n_meme.ui.auth.viewmodel.LoginViewModel
 import com.example.n_meme.util.hideKeyboard
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<LoginViewModel>()
