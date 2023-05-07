@@ -12,11 +12,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.n_meme.databinding.FragmentDetailFavouriteBinding
-import com.example.n_meme.model.database.Favourites
+import com.example.n_meme.data.local.Favourites
 import com.example.n_meme.ui.base.BaseFragment
 import com.example.n_meme.ui.favourite.adapter.DetailFavAdapter
 import com.example.n_meme.util.ImageSaver
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFavouriteFragment : BaseFragment() {
 
     private val favViewModel : FavViewModel by lazy {

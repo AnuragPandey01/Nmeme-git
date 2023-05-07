@@ -1,4 +1,4 @@
-package com.example.n_meme.model.database
+package com.example.n_meme.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

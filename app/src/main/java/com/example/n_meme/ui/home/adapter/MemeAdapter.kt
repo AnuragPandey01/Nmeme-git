@@ -15,7 +15,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.n_meme.R
-import com.example.n_meme.model.Meme
+import com.example.n_meme.data.model.Meme
 
 
 class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {

@@ -1,7 +1,6 @@
 package com.example.n_meme.ui.favourite.adapter
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.n_meme.R
-import com.example.n_meme.model.database.Favourites
+import com.example.n_meme.data.local.Favourites
 
 class DetailFavAdapter(val context: Context,private val favList:List<Favourites>):RecyclerView.Adapter<DetailFavAdapter.ViewHolder>() {
 

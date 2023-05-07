@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.n_meme.ui.favourite.adapter.FavAdapter
 import com.example.n_meme.databinding.FragmentFavouritesBinding
-import com.example.n_meme.model.database.Favourites
+import com.example.n_meme.data.local.Favourites
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class FavouritesFragment : Fragment() {
 
-    private val favViewModel : FavViewModel by lazy{
-        ViewModelProvider(this).get(FavViewModel::class.java)
-    }
+    private val favViewModel : FavViewModel by viewModels()
     private var _binding: FragmentFavouritesBinding? = null
     private val binding : FragmentFavouritesBinding
         get() = _binding!!

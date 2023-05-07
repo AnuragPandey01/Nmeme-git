@@ -9,7 +9,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.n_meme.R
-import com.example.n_meme.model.database.Favourites
+import com.example.n_meme.data.local.Favourites
 import com.example.n_meme.ui.favourite.FavouritesFragmentDirections
 
 class FavAdapter(val context: Context, private val favList: List<Favourites>): RecyclerView.Adapter<FavAdapter.ViewHolder>(){

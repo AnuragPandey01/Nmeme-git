@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -19,11 +19,13 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.n_meme.R
 import com.example.n_meme.databinding.FragmentFeedBinding
-import com.example.n_meme.model.Meme
+import com.example.n_meme.data.model.Meme
 import com.example.n_meme.ui.base.BaseFragment
 import com.example.n_meme.ui.home.adapter.MemeAdapter
 import com.example.n_meme.util.ImageSaver
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FeedFragment : BaseFragment() {
 
     private var _binding: FragmentFeedBinding? = null
@@ -33,9 +35,7 @@ class FeedFragment : BaseFragment() {
     private var addedToFavourites = mutableListOf<String>()
     private val memeAdapter: MemeAdapter by lazy { MemeAdapter() }
     private val memeList: List<Meme> by lazy { memeAdapter.memeList }
-    private val viewModel: HomeViewModel by lazy {
-        ViewModelProvider(this).get(HomeViewModel::class.java)
-    }
+    private val viewModel: HomeViewModel by viewModels()
     private val args : FeedFragmentArgs by lazy {
         FeedFragmentArgs.fromBundle(requireArguments())
     }

@@ -1,21 +1,21 @@
 package com.example.n_meme.ui.home
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.example.n_meme.api.RetrofitInstance
-import com.example.n_meme.model.MemeResponse
-import com.example.n_meme.model.database.FavDao
-import com.example.n_meme.model.database.FavDataBase
-import com.example.n_meme.model.database.Favourites
+import com.example.n_meme.data.api.MemeApiService
+import com.example.n_meme.data.model.MemeResponse
+import com.example.n_meme.data.local.FavDao
+import com.example.n_meme.data.local.Favourites
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class HomeViewModel(application: Application): AndroidViewModel(application) {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val dao: FavDao,
+    private val memeApiService: MemeApiService
+): ViewModel() {
 
-    private var dao: FavDao
-    init {
-        dao = FavDataBase.getDatabaseInstance(application.applicationContext).favDao()
-    }
     private var _response : MutableLiveData<Response<MemeResponse>> = MutableLiveData()
 
     val response : LiveData<Response<MemeResponse>>
@@ -23,7 +23,7 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
 
     fun getMeme(category: String){
         viewModelScope.launch {
-             _response.value = RetrofitInstance.api.getMeme(category)
+             _response.value = memeApiService.getMeme(category)
         }
     }
 

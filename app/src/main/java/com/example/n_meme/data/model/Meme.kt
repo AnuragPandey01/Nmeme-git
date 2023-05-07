@@ -1,4 +1,4 @@
-package com.example.n_meme.model
+package com.example.n_meme.data.model
 
 data class Meme(
     val author: String,
