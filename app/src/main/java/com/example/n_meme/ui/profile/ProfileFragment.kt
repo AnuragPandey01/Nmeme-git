@@ -45,4 +45,9 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
