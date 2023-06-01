@@ -1,1 +1,6 @@
--keep class com.example.n_meme.model.* { *; }
+-keep @kotlinx.android.parcel.Parcelize public class *
+-keep class * extends androidx.fragment.app.Fragment{}
+-keepnames class * extends android.os.Parcelable
+-dontwarn okio.**
+-dontwarn okhttp3.**
+-dontwarn com.squareup.okhttp3.**

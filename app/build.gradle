@@ -24,8 +24,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
@@ -46,6 +46,7 @@ android {
     kapt {
         correctErrorTypes true
     }
+    namespace 'com.example.n_meme'
 
 }
 
@@ -109,6 +110,5 @@ dependencies {
     implementation 'com.google.dagger:hilt-android:2.44'
     kapt 'com.google.dagger:hilt-android-compiler:2.44'
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
-
 
 }

@@ -12,8 +12,10 @@ import com.example.n_meme.ui.auth.intent.SignupIntent
 import com.example.n_meme.ui.auth.viewState.SignupState
 import com.example.n_meme.ui.auth.viewmodel.SignupViewModel
 import com.example.n_meme.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SignupFragment :BaseFragment() {
 
     private val viewModel by viewModels<SignupViewModel>()
