@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -83,12 +84,20 @@ class FeedFragment : BaseFragment() {
                         }
                     })
             }
+
+            binding.btnFav.setOnClickListener {
+                findNavController().navigate(FeedFragmentDirections.actionFeedFragmentToFavouritesFragment())
+            }
+
+            binding.btnProfile.setOnClickListener {
+                findNavController().navigate(FeedFragmentDirections.actionFeedFragmentToProfileFragment())
+            }
         }
     }
 
     private fun loadMeme() {
         if (memeList.size % 7 == 0) {
-            viewModel.getMeme("dankmemes")
+            viewModel.getMeme("hentaimemes")
         }
     }
 

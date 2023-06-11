@@ -19,9 +19,10 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_save"
         app:fabSize="mini"
-        app:borderWidth="1dp"
         app:layout_constraintBottom_toTopOf="@id/fav_meme"
+        android:backgroundTint="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:outlineProvider="none"
         android:layout_margin="16dp"
         android:contentDescription="@string/share" />
 
@@ -31,8 +32,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_share"
         app:fabSize="mini"
-        app:borderWidth="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:outlineProvider="none"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
         android:contentDescription="@string/share" />
@@ -42,12 +44,72 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_fav"
-        app:borderWidth="1dp"
         app:fabSize="mini"
+        android:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@id/share_meme"
         app:layout_constraintEnd_toEndOf="@id/share_meme"
         app:layout_constraintStart_toStartOf="@id/share_meme"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/add_to_favourite" />
+        android:outlineProvider="none"
+        android:layout_margin="16dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottom_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#1AFFFFFF"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="#33FFFFFF"
+        app:strokeWidth="1dp"
+        android:layout_margin="16dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/search_meme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/transparent"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="16dp"
+                android:layout_height="1dp"
+                app:dividerColor="#66FFFFFF"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="8dp"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_person"
+                android:background="@android:color/transparent"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="16dp"
+                android:layout_height="1dp"
+                app:dividerColor="#66FFFFFF"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="8dp"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fav_folder"
+                android:layout_marginBottom="4dp"
+                android:background="@android:color/transparent"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

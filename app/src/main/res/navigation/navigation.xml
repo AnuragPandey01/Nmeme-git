@@ -18,8 +18,7 @@
         android:id="@+id/AboutFragment"
         android:name="com.example.n_meme.ui.setting.AboutFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_about" >
-    </fragment>
+        tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/detailFavouriteFragment"
         android:name="com.example.n_meme.ui.favourite.DetailFavouriteFragment"
@@ -40,6 +39,12 @@
         android:name="com.example.n_meme.ui.home.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_favouritesFragment"
+            app:destination="@id/favouritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -51,6 +56,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_AboutFragment"
+            app:destination="@id/AboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
