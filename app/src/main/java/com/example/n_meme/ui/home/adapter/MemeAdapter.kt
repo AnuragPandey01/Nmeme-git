@@ -1,6 +1,6 @@
 package com.example.n_meme.ui.home.adapter
 
-import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,19 +37,17 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
 
         holder.title.text = currMeme.title
         Glide.with(context)
-            .asBitmap()
             .load(currMeme.url)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .thumbnail(
                 Glide.with(context)
-                    .asBitmap()
                     .load(currMeme.preview[1])
             )
-            .listener(object : RequestListener<Bitmap> {
+            .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any?,
-                    target: Target<Bitmap>?,
+                    target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
                     holder.progress.visibility = View.GONE
@@ -58,9 +56,9 @@ class MemeAdapter : RecyclerView.Adapter<MemeAdapter.ViewHolder>() {
                 }
 
                 override fun onResourceReady(
-                    resource: Bitmap?,
+                    resource: Drawable?,
                     model: Any?,
-                    target: Target<Bitmap>?,
+                    target: Target<Drawable>?,
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
