@@ -56,60 +56,78 @@
         android:id="@+id/bottom_nav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#80000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="#1AFFFFFF"
         app:cardCornerRadius="20dp"
-        app:strokeColor="#33FFFFFF"
-        app:strokeWidth="1dp"
         android:layout_margin="16dp">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:backgroundTint="#1AFFFFFF"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="#33FFFFFF"
+            app:strokeWidth="1dp">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/search_meme"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_search"
-                android:layout_marginTop="4dp"
-                android:background="@android:color/transparent"/>
+                android:orientation="vertical"
+                android:padding="8dp">
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="16dp"
-                android:layout_height="1dp"
-                app:dividerColor="#66FFFFFF"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginVertical="8dp"/>
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/search_meme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/transparent"/>
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_person"
-                android:background="@android:color/transparent"/>
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="16dp"
+                    android:layout_height="1dp"
+                    app:dividerColor="#66FFFFFF"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginVertical="8dp"/>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="16dp"
-                android:layout_height="1dp"
-                app:dividerColor="#66FFFFFF"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginVertical="8dp"/>
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_person"
+                    android:background="@android:color/transparent"/>
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_fav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_fav_folder"
-                android:layout_marginBottom="4dp"
-                android:background="@android:color/transparent"/>
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="16dp"
+                    android:layout_height="1dp"
+                    app:dividerColor="#66FFFFFF"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginVertical="8dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_fav_folder"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/transparent"/>
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
+        </com.google.android.material.card.MaterialCardView>
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        app:indicatorSize="50dp"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

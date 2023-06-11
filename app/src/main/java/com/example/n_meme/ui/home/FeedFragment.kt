@@ -1,6 +1,7 @@
 package com.example.n_meme.ui.home
 
 import android.Manifest
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -21,7 +22,9 @@ import com.example.n_meme.databinding.FragmentFeedBinding
 import com.example.n_meme.data.model.Meme
 import com.example.n_meme.ui.base.BaseFragment
 import com.example.n_meme.ui.home.adapter.MemeAdapter
+import com.example.n_meme.util.ApiResponse
 import com.example.n_meme.util.ImageSaver
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,17 +49,35 @@ class FeedFragment : BaseFragment() {
         setOnClickListener()
         initViewPager()
         loadMeme()
-        try {
-            viewModel.response.observe(viewLifecycleOwner) { response ->
-                if (response.isSuccessful) {
-                    memeAdapter.setData(response.body()!!.memes)
-                } else {
-                    Toast.makeText(requireContext(), response.code().toString(), Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Check your connection", Toast.LENGTH_LONG).show()
+
+        viewModel.memeResponseLiveData.observe(viewLifecycleOwner) { res ->
+           when(res){
+               is ApiResponse.Success -> {
+                   binding.progressBar.visibility = View.GONE
+                   res.data?.let {
+                       memeAdapter.setData(it.memes)
+                   }
+               }
+               is ApiResponse.Error -> {
+                   binding.progressBar.visibility = View.GONE
+                   MaterialAlertDialogBuilder(requireContext())
+                       .setTitle("Error")
+                       .setMessage(res.message)
+                       .setPositiveButton("Retry") { dialog, _ ->
+                           dialog.dismiss()
+                           loadMeme()
+                       }
+                       .setNegativeButton("Cancel") { _, _ ->
+                           requireActivity().finish()
+                       }
+                       .setCancelable(false)
+                       .show()
+               }
+
+               is ApiResponse.Loading -> {
+                   binding.progressBar.visibility = View.VISIBLE
+               }
+           }
         }
 
         return binding.root

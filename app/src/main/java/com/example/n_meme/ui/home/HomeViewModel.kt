@@ -5,6 +5,8 @@ import com.example.n_meme.data.api.MemeApiService
 import com.example.n_meme.data.model.MemeResponse
 import com.example.n_meme.data.local.FavDao
 import com.example.n_meme.data.local.Favourites
+import com.example.n_meme.data.repository.Repository
+import com.example.n_meme.util.ApiResponse
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,26 +17,14 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val dao: FavDao,
-    private val memeApiService: MemeApiService,
-    private val mixpanelAPI: MixpanelAPI
+    private val repository: Repository
 ): ViewModel() {
-
-    private var _response : MutableLiveData<Response<MemeResponse>> = MutableLiveData()
-
-    val response : LiveData<Response<MemeResponse>>
-        get() = _response
+    val memeResponseLiveData: LiveData<ApiResponse<MemeResponse>>
+        get() = repository.memeResponseLiveData
 
     fun getMeme(category: String){
         viewModelScope.launch {
-
-            val response = memeApiService.getMeme(category)
-            if(response.isSuccessful){
-                _response.value = response
-            }else{
-                logToMixPanel("memeApi failed response",JSONObject().apply{
-                    put("raw",response.raw().toString())
-                })
-            }
+            repository.getMeme(category)
         }
     }
 
@@ -42,15 +32,6 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             dao.insertFav(Favourites(0,favUrl,memeTitle))
         }
-    }
-
-    private fun logToMixPanel(eventName: String,jsonObject: JSONObject? = null){
-        mixpanelAPI.track(eventName,jsonObject)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        mixpanelAPI.flush()
     }
 
 }
