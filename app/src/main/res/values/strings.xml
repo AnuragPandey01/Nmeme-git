@@ -1,24 +1,9 @@
 <resources>
     <string name="app_name">Nmeme</string>
-    <string name="anime">Anime</string>
-    <string name="wholesome">Wholesome</string>
-    <string name="dank">Dank</string>
-    <string name="history">History</string>
-    <string name="gaming">Gaming</string>
-    <string name="next">Next</string>
-    <string name="loading">Loading…</string>
-    <string name="meme_loading_failed">meme loading failed</string>
     <string name="add_to_favourite">Add to favourite</string>
-    <string name="dark_mode">Dark mode</string>
-    <string name="light_mode">light mode</string>
     <string name="share">share</string>
     <string name="favourites">Favourites</string>
-    <string name="exit">Exit</string>
-    <string name="setting">Setting</string>
-    <string name="failed">failed</string>
-    <string name="about">About</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

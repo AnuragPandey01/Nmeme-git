@@ -82,7 +82,7 @@ class LoginFragment : BaseFragment() {
 
                     is LoginState.LoginSuccess -> {
                         toggleLoading(false)
-                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryBrowseFragment())
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToFeedFragment())
                     }
 
                     is LoginState.UnverifiedEmail -> {
@@ -124,7 +124,7 @@ class LoginFragment : BaseFragment() {
                     }
 
                     is LoginState.AlreadySignedIn ->{
-                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCategoryBrowseFragment())
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToFeedFragment())
                     }
                 }
             }

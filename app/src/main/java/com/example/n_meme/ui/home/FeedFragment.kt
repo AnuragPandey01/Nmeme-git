@@ -12,12 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.n_meme.R
 import com.example.n_meme.databinding.FragmentFeedBinding
 import com.example.n_meme.data.model.Meme
 import com.example.n_meme.ui.base.BaseFragment
@@ -36,14 +34,6 @@ class FeedFragment : BaseFragment() {
     private val memeAdapter: MemeAdapter by lazy { MemeAdapter() }
     private val memeList: List<Meme> by lazy { memeAdapter.memeList }
     private val viewModel: HomeViewModel by viewModels()
-    private val args : FeedFragmentArgs by lazy {
-        FeedFragmentArgs.fromBundle(requireArguments())
-    }
-    
-    //throws an exception if called before onCreate
-    private val category :String by lazy{
-        CategoryBrowseFragment.categories[args.categoryIndex].second
-    }
 
 
     override fun onCreateView(
@@ -75,9 +65,6 @@ class FeedFragment : BaseFragment() {
     private fun setOnClickListener() {
         binding.apply {
 
-            btnBack.setOnClickListener {
-                findNavController().navigate(R.id.action_feedFragment_to_categoryBrowseFragment)
-            }
             shareMeme.setOnClickListener { shareMeme() }
             favMeme.setOnClickListener { addToFav() }
             downloadMeme.setOnClickListener {
@@ -101,7 +88,7 @@ class FeedFragment : BaseFragment() {
 
     private fun loadMeme() {
         if (memeList.size % 7 == 0) {
-            viewModel.getMeme(category)
+            viewModel.getMeme("dankmemes")
         }
     }
 

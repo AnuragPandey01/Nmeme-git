@@ -6,15 +6,6 @@
     app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/categoryBrowseFragment"
-        android:name="com.example.n_meme.ui.home.CategoryBrowseFragment"
-        android:label="fragment_category_browse"
-        tools:layout="@layout/fragment_category_browse" >
-        <action
-            android:id="@+id/action_categoryBrowseFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.example.n_meme.ui.favourite.FavouritesFragment"
         android:label="fragment_favourites"
@@ -49,14 +40,6 @@
         android:name="com.example.n_meme.ui.home.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" >
-        <action
-            android:id="@+id/action_feedFragment_to_categoryBrowseFragment"
-            app:destination="@id/categoryBrowseFragment"
-            app:popUpTo="@id/feedFragment"
-            app:popUpToInclusive="true" />
-        <argument
-            android:name="categoryIndex"
-            app:argType="integer"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -78,8 +61,8 @@
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_categoryBrowseFragment"
-            app:destination="@id/categoryBrowseFragment"
+            android:id="@+id/action_loginFragment_to_feedFragment"
+            app:destination="@id/feedFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
