@@ -1,7 +1,6 @@
 package com.example.n_meme.ui.home
 
 import android.Manifest
-import android.app.ProgressDialog.show
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -18,8 +17,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.n_meme.databinding.FragmentFeedBinding
 import com.example.n_meme.data.model.Meme
+import com.example.n_meme.databinding.FragmentFeedBinding
 import com.example.n_meme.ui.base.BaseFragment
 import com.example.n_meme.ui.home.adapter.MemeAdapter
 import com.example.n_meme.util.ApiResponse
@@ -87,6 +86,9 @@ class FeedFragment : BaseFragment() {
     private fun setOnClickListener() {
         binding.apply {
 
+            searchMeme.setOnClickListener {
+                findNavController().navigate(FeedFragmentDirections.actionFeedFragmentToSearchFragment())
+            }
             shareMeme.setOnClickListener { shareMeme() }
             favMeme.setOnClickListener { addToFav() }
             downloadMeme.setOnClickListener {
@@ -118,7 +120,7 @@ class FeedFragment : BaseFragment() {
 
     private fun loadMeme() {
         if (memeList.size % 7 == 0) {
-            viewModel.getMeme("hentaimemes")
+            viewModel.getMeme()
         }
     }
 

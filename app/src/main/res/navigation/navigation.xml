@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_feedFragment_to_favouritesFragment"
             app:destination="@id/favouritesFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -83,5 +86,10 @@
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.n_meme.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 
 </navigation>

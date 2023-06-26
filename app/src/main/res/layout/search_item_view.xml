@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingVertical="8dp" >
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/subreddit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="hello"
+        android:textSize="18sp"
+        android:drawablePadding="16dp"
+        android:drawableTint="#66FFFFFF"
+        android:drawableStart="@drawable/ic_search"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

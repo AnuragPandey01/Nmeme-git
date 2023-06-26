@@ -8,6 +8,7 @@ class PreferenceManager(
     companion object {
         private const val KEY_EMAIL = "email"
         private const val KEY_DISPLAY_NAME = "displayName"
+        private const val SUBREDDIT = "subreddit"
     }
 
     fun saveEmail(email: String) {
@@ -25,4 +26,13 @@ class PreferenceManager(
     fun getDisplayName(): String? {
         return sharedPreferences.getString(KEY_DISPLAY_NAME, null)
     }
+
+    fun saveSubreddit(subreddit: String) {
+        sharedPreferences.edit().putString(SUBREDDIT, subreddit).apply()
+    }
+
+    fun getSubreddit(): String? {
+        return sharedPreferences.getString(SUBREDDIT, "wholesomemes")
+    }
+
 }
