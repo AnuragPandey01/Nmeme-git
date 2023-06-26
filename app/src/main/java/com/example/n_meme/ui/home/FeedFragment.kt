@@ -23,6 +23,7 @@ import com.example.n_meme.ui.base.BaseFragment
 import com.example.n_meme.ui.home.adapter.MemeAdapter
 import com.example.n_meme.util.ApiResponse
 import com.example.n_meme.util.ImageSaver
+import com.example.n_meme.util.Share
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -89,7 +90,12 @@ class FeedFragment : BaseFragment() {
             searchMeme.setOnClickListener {
                 findNavController().navigate(FeedFragmentDirections.actionFeedFragmentToSearchFragment())
             }
-            shareMeme.setOnClickListener { shareMeme() }
+            shareMeme.setOnClickListener {
+                Share.asUrl(
+                    requireContext(),
+                    memeList[binding.viewpager.currentItem].url
+                )
+            }
             favMeme.setOnClickListener { addToFav() }
             downloadMeme.setOnClickListener {
                 Glide.with(requireContext())
@@ -137,17 +143,6 @@ class FeedFragment : BaseFragment() {
                 prevPosition = position
             }
         })
-    }
-
-    private fun shareMeme() {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
-        intent.putExtra(
-            Intent.EXTRA_TEXT,
-            "Hey check out this meme ${memeList[binding.viewpager.currentItem].url}"
-        )
-        val chooser = Intent.createChooser(intent, "Complete action using...")
-        startActivity(chooser)
     }
 
     private fun addToFav() {

@@ -16,6 +16,7 @@ import com.example.n_meme.data.local.Favourites
 import com.example.n_meme.ui.base.BaseFragment
 import com.example.n_meme.ui.favourite.adapter.DetailFavAdapter
 import com.example.n_meme.util.ImageSaver
+import com.example.n_meme.util.Share
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -65,6 +66,10 @@ class DetailFavouriteFragment : BaseFragment() {
                     }
                 })
 
+        }
+
+        binding.shareMeme.setOnClickListener {
+            Share.asUrl(requireContext(),favList.value!![binding.viewpager.currentItem].url)
         }
     }
 

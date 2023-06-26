@@ -29,4 +29,16 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/share" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/share_meme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share"
+        app:fabSize="mini"
+        app:borderWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/download_meme"
+        app:layout_constraintStart_toStartOf="@id/download_meme"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/share" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
