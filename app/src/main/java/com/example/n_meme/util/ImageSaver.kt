@@ -13,16 +13,17 @@ import java.io.OutputStream
 
 object ImageSaver {
 
+    private val RELATIVE_PATH = Environment.DIRECTORY_PICTURES + File.separator + "Nmeme"
+
     fun saveImage(context: Context,bitmap: Bitmap,fileName:String) {
 
-        val relativePath = Environment.DIRECTORY_PICTURES + File.separator + "Nmeme"
         val contentValues = ContentValues().apply {
             put(MediaStore.Images.ImageColumns.DISPLAY_NAME, fileName)
             put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
 
             // without this part causes "Failed to create new MediaStore record" exception to be invoked (uri is null below)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                put(MediaStore.Images.ImageColumns.RELATIVE_PATH, relativePath)
+                put(MediaStore.Images.ImageColumns.RELATIVE_PATH, RELATIVE_PATH)
             }
         }
         val contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
